@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.signInPage {
+    width: 100vw;
+    height: 100vh;
+    background-color: #18181B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.triangle {
+    width: 20%;
+    aspect-ratio: 1;
+    position: fixed;
+    top: 30%;
+    left: 4%;
+}
+
+.EclipseRight {
+    width: 6.25%;
+    position: fixed;
+    right: 0%;
+    top: 20%;
+}
+
+.EclipseBottom {
+    width: 15%;
+    position: fixed;
+    bottom: 0%;
+    right: 25%;
+}
+
+.signInArea {
+    height: 50%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.formArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputBoxes {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.inputAndError {
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    height: 1.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    margin-left: 1%;
+    color: rgba(82, 34, 36, 1);
+}
+
+.inputBoxes .inputBox {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem;
+    font-family: 'Poppins';
+    margin-bottom: 5%;
+}
+
+.inputBoxes .inputBox .label {
+    color: rgba(255, 255, 255, 1);
+    font-weight: 500;
+    letter-spacing: 3%;
+    margin-bottom: 0.5em;
+}
+
+.inputBoxes .inputBox .input {
+    outline: none;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    padding: 3%;
+    border-radius: 12px;
+    font-weight: 300;
+    letter-spacing: 3%;
+    color: rgba(255, 255, 255, 1);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #18181B inset !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+    background-color: transparent !important;
+}
+
+.inputBoxes .inputBox .input::placeholder{
+    color: rgba(99, 99, 100, 1);
+}
+
+.errorContainer {
+    height: 8%;
+    display: flex;
+    color: rgba(82, 34, 36, 1);
+}
+
+.errorLabel {
+    color: rgba(255, 65, 65, 1);
+    font-weight: 500;
+    letter-spacing: 3%;
+    margin-bottom: 0.5rem;
+}
+
+.errorInput {
+    border: 1px solid rgba(255, 39, 39, 0.5);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    outline: none;
+    background-color: transparent;
+    padding: 3%;
+    border-radius: 12px;
+    font-weight: 300;
+    letter-spacing: 3%;
+}
+
+.buttons {
+    flex: 0.35;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1%;
+    margin-top: 2.5%;
+    margin-bottom: 7%;
+}
+
+.buttons button {
+    box-shadow: 0px 4px 10px 0px rgba(233, 68, 75, 0.25);
+    background-color: rgba(26, 95, 255, 1);
+    border: none;
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: 3%;
+    font-family: 'Poppins';
+    padding: 3%;
+}
+
+.buttons .or {
+    font-family: 'Poppins';
+    font-weight: 300;
+    color: rgba(255, 255, 255, 1);
+    font-size: 0.75rem;
+    margin: 2%;
+}
+
+.dontHaveAccount {
+    flex: 0.1;
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 0.875rem;
+    letter-spacing: 3%;
+    color: rgba(255, 255, 255, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+}
+
+.dontHaveAccount .toLogin {
+    color: rgba(26, 95, 255, 1);
+    text-decoration: none;
+}
+
+.activeLink {
+    text-decoration: underline;
+}
