@@ -60,16 +60,17 @@ function Signin() {
       if (res.status === 200){
 
         const data = await res.json();
-        const {message, token} = data;
+        const {message, token, userId} = data;
 
         localStorage.setItem("token", token);
+        localStorage.setItem('userId', userId);
 
         setSignInDetails({
           email: '',
           password: ''
         });
 
-        navigate('/workspace', {state: {toastMessage: message}});
+        navigate(`/workspace/${userId}/dashboard`, {state: {toastMessage: message}});
 
       } else if (res.status === 401 || res.status === 500) {
         const data = await res.json();

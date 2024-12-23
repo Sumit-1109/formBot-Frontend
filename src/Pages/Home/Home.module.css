@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0%;
+    /* overflow-x: hidden; */
+}
+
+.homePage{
+    width: 100vw;
+    height: 100vh;
+    background-color: #171923;
+}
+
+.navBar{
+    margin-top: 2%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    z-index: 1000;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 9.2%;
+    height: 100%;
+    margin-left: 5%;
+}
+
+.logoImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoImg img{
+    height: 100%;
+    aspect-ratio: 1;
+}
+
+.logo h1{
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Outfit';
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.buttons{
+    width: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 5%;
+    letter-spacing: 0.5rem;
+}
+
+.buttons button {
+    padding: 3% 6%;
+}
+
+.signIn{
+    border: 1.1px solid rgba(126, 166, 255, 1);
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgba(126, 166, 255, 1);
+    font-family: 'Open Sans';
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.create{
+    background-color: rgba(26, 95, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Open Sans';
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.2) inset;
+    border: none;
+}
+
+.body{
+    height: 100vh;
+    width: 100vw;
+    border: 1px yellow solid;
+    overflow-y: auto;
+}
+
+.heroPage{
+    display: flex;
+    border: 1px red solid;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14%;
+}
+
+
+.homePageCenterContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 70vw;
+}
+
+.headingText{
+    width: 100%;
+    margin-top: 10%;
+    margin-bottom: 3%;
+}
+
+.headingText h1{
+    font-family: 'Outfit';
+    background: linear-gradient(90deg, #4B83FF 0%, #B794F4 100%);
+    --webkit-background-clip: text;
+    --webkit-text-fill-color: transparent;
+    color: transparent;
+    background-clip: text;
+    font-size: clamp(16px, 5vw, 72px)
+}
+
+.subHeading{
+    width: 75%;
+}
+
+.subHeading p{
+    font-family: 'Open Sans';
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.triangleHomePage{
+    position: absolute;
+    bottom: 22%;
+    left: 3%;
+}
+
+.semiCircleHomePage{
+    position: absolute;
+    top: 38%;
+    right: 1%;
+}
+
+.triangleHomePage img,
+.semiCircleHomePage img{
+    width: 16vw;
+    height: auto;
+    aspect-ratio: 1/1;
+}
+
+/* .heroPage{
+    width: 100%;
+    height: 100%;
+    border: 1px maroon solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid saddlebrown;
+
+}
+
+.triangleHomePage{
+    position: relative;
+    top: 11%;
+    right: 3%;
+    flex-shrink: 0;
+    border: 1px solid saddlebrown;
+
+}
+
+.semiCircleHomePage{
+    position: relative;
+    top: 7.5%;
+    right: 1%;
+    flex-shrink: 0;
+    border: 1px solid saddlebrown;
+
+}
+
+.headingText{
+    border: 1px maroon solid;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14%;
+}
+
+.headingText h1{
+    background: linear-gradient(90deg, #4B83FF 0%, #B794F4 100%);
+    --webkit-background-clip: text;
+    --webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+
+    font-size: clamp(16px, 5vw, 72px);
+    text-align: center;
+}
+
+.homePageCenterContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid saddlebrown;
+    /* width: 20%; */
+    /* flex: 1;
+    box-sizing: border-box;
+} */ 

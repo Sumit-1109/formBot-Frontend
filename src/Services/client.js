@@ -18,4 +18,23 @@ export const signIn = (data) => {
         },
         body: JSON.stringify(data),
     })
-}
+};
+
+export const getTheme = (userId) => {
+    return fetch(`${URL}/api/user/${userId}/theme`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+};
+
+export const updateTheme = (userId, theme) => {
+    return fetch(`${URL}/api/user/${userId}/theme`, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({theme}),
+    })
+};
