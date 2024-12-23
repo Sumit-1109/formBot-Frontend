@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import styles from './Workspace.module.css';
+import styles from './WorkSpace.module.css';
 import { useEffect, useState } from 'react';
 import { getWorkspace } from '../../Services/workspace';
 
