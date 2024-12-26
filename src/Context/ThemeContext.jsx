@@ -8,35 +8,60 @@ export const useTheme = () => {
   return useContext(ThemeContext);
 };
 
-export const ThemeProvider = ({userId, children}) => {
+export const ThemeProvider = ({children}) => {
   const [theme, setTheme] = useState(false);
 
   useEffect(() => {
     const fetchTheme = async () => {
+
+      const token = localStorage.getItem("token");
+
+      if(!token){
+        setTheme(false);
+        return;
+      }
       
       try{
-        const res = await getTheme(userId);
-      const body = await res.json();
-      const theme = body.theme;
-      setTheme(theme)
+        const res = await getTheme(token);
+
+        if (res.status === 200) {
+          const body = await res.json();
+          const theme = body.theme;
+          setTheme(theme);
+        } else {
+          setTheme(false);
+          console.log("Failed to fetch theme")
+        }
       } catch (err) {
-        console.error(err);
+        console.error( "Error fetching theme",err);
         setTheme(false);
       }
     };
     fetchTheme();
 
-  }, [userId]);
+  }, []);
 
   const toggleTheme = async () => {
     const newTheme = !theme;
     setTheme(newTheme);
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("User not authenticated. Cannot update theme");
+      return;
+    }
     
     try {
-      await updateTheme(userId, newTheme);
+      const res = await updateTheme(token, newTheme);
+
+      if(res.status !== 200){
+        console.log("Failed to update theme.")
+        setTheme(!newTheme);
+      }
     } catch(error) {
       console.error(error);
-      setTheme(newTheme);
+      setTheme(!newTheme);
     }
   };
 

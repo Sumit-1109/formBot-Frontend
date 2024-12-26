@@ -9,15 +9,122 @@
     padding-right: 4.2%;
 }
 
-.workSpaceNameandsettings {
+.workSpaceNameAndSettings {
     width: 36%;
     height: 65%;
+    position: relative;
+}
+
+.dropDownContainer{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.dropDownContainer.open{
+    height: 6.75vh;
+}
+
+.dropDownHeader{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding-inline: 5%;
     border: 1px solid rgba(255, 255, 255, 0.16);
-    padding-inline: 1% 2.5%;
     border-radius: 8px;
 }
 
-.workSpaceNameandsettings .dropDown{
+.dropDownHeader.open{
+    background-color: rgba(29, 29, 29, 1);
+    border-radius: 8px 8px 0px 0px;
+    border-bottom: none ;
+}
+
+.icon{
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.icon.open{
+    transform: rotate(-180deg);
+}
+
+.dropDownList{
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    background-color: rgba(29, 29, 29, 1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: none;
+    z-index: 10005;
+}
+
+.list{
+    list-style: none;
+    cursor: pointer;
+}
+
+.listItems{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    height: 6.75vh;
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+}
+
+.logOut{
+    color: rgba(255, 165, 76, 1);
+}
+
+
+/* .workSpaceNameAndSettings select{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 0.85rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('../../assets/dropDown.png');
+    background-repeat: no-repeat;
+    background-position: 95%;
+    padding-left: 3.5%;
+}
+
+.workSpaceNameAndSettings select.open{
+    background-image: url('../../assets/dropUp.png');
+    background-position: 94%;
+    background-color: rgba(29, 29, 29, 1);
+}
+
+.workSpaceNameAndSettings select option{
+    color: red;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+}
+
+.option{
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: red;
+} */
+
+/* .workSpaceNameAndSettings select{
     width: 100%;
     height: 100%;
     background-color: transparent;
@@ -28,12 +135,21 @@
     font-family: 'Open Sans';
     font-size: 0.85rem;
     font: 600;
-}
+    /* padding-inline: 1% 2.5%; */
+    /* -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 20%;
+    padding-left: 10%;
+    background-repeat: no-repeat;
+    background-position: 95%;
+    background-image: url('../../assets/dropDown.png');
+} */
 
 .workSpaceNameandsettings select:focus{
     border: none;
     outline: none;
 }
+
 
 .theme{
     width: 17.5%;
@@ -62,3 +178,9 @@
     font-weight: 600;
 }
 
+.option{
+    width: 100%;
+    background-color: rgba(29, 29, 29, 1);
+    color: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.16)
+}

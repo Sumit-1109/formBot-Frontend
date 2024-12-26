@@ -20,21 +20,44 @@ export const signIn = (data) => {
     })
 };
 
-export const getTheme = (userId) => {
-    return fetch(`${URL}/api/user/${userId}/theme`, {
+export const modify = (data, token) => {
+    return fetch (`${URL}/api/user/modify`, {
+        method: 'PUT',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify(data),
+    })
+};
+
+export const getTheme = (token) => {
+    return fetch(`${URL}/api/user/theme`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': token
         },
     })
 };
 
-export const updateTheme = (userId, theme) => {
-    return fetch(`${URL}/api/user/${userId}/theme`, {
+export const updateTheme = (token, theme) => {
+    return fetch(`${URL}/api/user/theme`, {
         method: 'POST',
         headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type' : 'application/json',
+            'Authorization' : token
         },
         body: JSON.stringify({theme}),
     })
 };
+
+export const logOut = (token) => {
+    return fetch (`${URL}/api/user/logout`, {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+    })
+}

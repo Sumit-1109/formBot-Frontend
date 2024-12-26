@@ -2,7 +2,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: 'Open Sans';
 }
 
@@ -39,15 +38,63 @@
 
 .foldersList{
     width: 100%;
-    height: 7.1%;
     display: flex;
+    gap: 2%;
     flex-wrap: wrap;
 }
 
-.createFolderButton{
-    height: 100%;
-    width: 15.75%;
+.folderContainer{
+    height: 5.8vh;
+    min-width: 12.2%;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+    font-size: 0.87rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5%;
+    padding-inline: 2%;
+    margin-bottom: 1.5%;
+    cursor: pointer;
     border-radius: 6px;
+}
+
+
+.addFolderButton{
+    width: 17px;
+    aspect-ratio: 1/1;
+    margin-right: 1%;
+}
+
+.deleteIcon{
+    width: 17px;
+    aspect-ratio: 1/1;
+}
+
+.folderContainer span{
+    white-space: nowrap;
+}
+
+
+
+/* .foldersList{
+    width: 100%;
+    padding: 1%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    box-sizing: border-box;
+
+    border: 1px solid yellow;
+}
+
+.createFolderButton{
+    height: 6vh;
+    width: 12.2vw;
 }
 
 .createFolderButton button{
@@ -68,17 +115,92 @@
     width: 10%;
 }
 
+.folderContainer{
+    height: 6vh;
+    min-width: 12.2vw;
+    flex: 1 1 auto;
+    padding: 5%;
+    position: relative;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        border: 1px solid magenta;
+}
+
+.folderContainer button{
+    width: auto;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+    font-size: 0.87rem;
+    border: none;
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+    font-size: 0.87rem;
+    padding-inline: 5%;
+    margin-inline: 5%;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    
+
+} */
+
+/* .folderContainer button span{
+    padding-inline: 2%;
+} */
+
+
+
+
+
+
+
 .formsList{
     width: 100%;
     flex: 1;
     margin-top: 2.7%;
     overflow-y: auto;
+    display: flex;
+    gap: 2.5%;
+    flex-wrap: wrap;
+    overflow: visible;
 }
 
 .createFormButton{
     width: 20.4%;
-    height: 51%;
+    height: 38vh;
     border-radius: 6px;
+}
+
+.FormBox{
+        width: 20.4%;
+        height: 38vh;
+        border-radius: 6px;
+        position: relative;
+        
+    cursor: pointer;
+}
+
+.formNameContainer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 17%;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
 }
 
 .createFormButton button{
@@ -94,6 +216,13 @@
     font-weight: 400;
     font-size: 1rem;
     color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+
+.formNameContainer img{
+    position: absolute;
+    top: -4%;
+    right: -4%;
 }
 
 .createFormButton button img{
@@ -102,3 +231,13 @@
 }
 
 
+/* .deleteIcon{
+    width: 5%;
+    aspect-ratio: 1/1;
+    border: 1px solid maroon;
+}
+
+.deleteIcon img{
+    width: 5%;
+    aspect-ratio: 1/1;
+} */
