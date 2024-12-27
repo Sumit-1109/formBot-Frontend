@@ -19,7 +19,7 @@ export const getFolderWorkspace = (token, workSpaceId, folderId) => {
             'Authorization' : token,
         },
     })
-}
+};
 
 export const createFolder = (token, workspaceId, folderName) => {
     return fetch(`${URL}/api/workspace/${workspaceId}/createFolder`, {

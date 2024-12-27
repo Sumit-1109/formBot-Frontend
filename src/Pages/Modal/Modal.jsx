@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
 import { useEffect, useRef } from "react";
-import { createFolder, createForm } from "../../Services/workspace";
-import { ToastContainer, Bounce, toast } from "react-toastify";
+import { createFolder, createForm, createFormInFolder, deleteFolder, deleteForm } from "../../Services/workspace";
+import { Bounce, toast } from "react-toastify";
 
 function Modal({
   setShowModal,
@@ -12,7 +12,14 @@ function Modal({
   workSpaceId,
   token,
   setToastMessage,
- setWorkSpace,
+  setWorkSpace,
+  toDelete,
+  setModalFor,
+  folderId,
+  formId,
+  setToDelete,
+  selectedFolder,
+  setFolderForms
 
 }) {
   const modalRef = useRef(null);
@@ -44,6 +51,7 @@ function Modal({
           setWorkSpace(data.workspace);
           setToastMessage(message);
           setShowModal(false);
+          setModalFor('');
           toast.success(message, {
                               position: "top-center",
                               autoClose: 5000,
@@ -72,18 +80,24 @@ function Modal({
       }
     } else if (modalFor === "Form") {
       try {
-        const res = await createForm(token, workSpaceId,folderFileName);
+        const res = selectedFolder ? 
+        await createFormInFolder(token, workSpaceId, selectedFolder, folderFileName)
+        :await createForm(token, workSpaceId,folderFileName);
 
         if (res.status === 201) {
           const data =await res.json();
           const message = data.message;
           setFolderFileName("");
-          setWorkSpace(prev => ({
-            ...prev,
-            forms: [...prev.forms, data.form]
-          }))
           setToastMessage(message);
+          setModalFor('');
           setShowModal(false);
+
+          if (selectedFolder) {
+            setFolderForms(data.folder.forms);
+        } else {
+            setWorkSpace(data.workspace);
+        }
+
         }
       } catch (err) {
         console.log(err);
@@ -102,22 +116,127 @@ function Modal({
     }
   };
 
+
+
+    const handleDeleteFolder =async (folderId) => {
+  
+      try{
+          const res = await deleteFolder(token, workSpaceId, folderId);
+  
+          if(res.status === 200) {
+  
+            const data = await res.json();
+  
+            setWorkSpace(prev => ({
+              ...prev,
+              folders: prev.folders.filter((folder) => folder._id !== folderId),
+            }));
+            setToastMessage(data.message);
+            setToDelete(false);
+            setModalFor('');
+            setShowModal(false);
+            toast.success(data.message, {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                      transition: Bounce,
+            });
+          }
+      } catch (err) {
+          console.log(err);
+          toast.error("An unexpected error occurred", {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                      transition: Bounce,
+          });
+      }
+    };
+
+    const handleDeleteForm =async (formId) => {
+  
+      console.log(formId);
+  
+      try{
+          const res = await deleteForm(token, workSpaceId, formId);
+  
+          if(res.status === 200) {
+  
+            const data = await res.json();
+  
+            setWorkSpace((prev) => ({
+              ...prev,
+              forms: prev.forms.filter((form) => form._id !== formId),
+            }));
+            setToDelete(false)
+            setShowModal(false);
+            setModalFor('');
+            setToastMessage(data.message)
+            toast.success(data.message, {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                      transition: Bounce,
+            });
+          }
+      } catch (err) {
+          console.log(err);
+          toast.error("An unexpected error occurred", {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                      transition: Bounce,
+          });
+      }
+    };
+
   return (
     <div className={styles.modal}>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
-      {modalFor !== "delete" && (
+      {toDelete ? (
+        <div className={styles.modalContent} ref={modalRef}>
+          <div className={styles.heading}>
+            <h1 htmlFor="folderName">Are you sure you want to delete this {modalFor} ?</h1>
+          </div>
+            
+            <div className={styles.buttons}>
+              <button className={styles.done} type="submit" onClick={() => {
+                  modalFor === 'Folder' ? handleDeleteFolder(folderId) : handleDeleteForm(formId)
+                  }}>
+                Done
+              </button>
+              <button
+                className={styles.cancel}
+                onClick={() => {
+                  setToDelete(false);
+                  setModalFor('');
+                  setShowModal(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+        </div>
+      ):(
         <div className={styles.modalContent} ref={modalRef}>
           <div className={styles.heading}>
             <h1 htmlFor="folderName">Create New {modalFor}</h1>
@@ -139,7 +258,6 @@ function Modal({
               </button>
               <button
                 className={styles.cancel}
-                onClick={() => setShowModal(false)}
               >
                 Cancel
               </button>
@@ -163,5 +281,12 @@ Modal.propTypes = {
   workSpaceId: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
   setToastMessage: PropTypes.func.isRequired,
-  setWorkSpace: PropTypes.func.isRequired
+  setWorkSpace: PropTypes.func.isRequired,
+  toDelete: PropTypes.bool.isRequired,
+  setModalFor: PropTypes.func.isRequired,
+  folderId: PropTypes.string,
+  formId: PropTypes.string,
+  setToDelete: PropTypes.func,
+  selectedFolder: PropTypes.string,
+  setFolderForms: PropTypes.func
 };

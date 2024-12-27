@@ -241,3 +241,7 @@
     width: 5%;
     aspect-ratio: 1/1;
 } */
+
+.selectedFolder{
+    background-color: rgba(255, 255, 255, 1);
+}
