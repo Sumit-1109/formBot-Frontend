@@ -1,0 +1,165 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans';
+}
+
+.Dashboard {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.dark {
+    background-color: #18181B;
+    color: rgba(255, 255, 255, 1);
+}
+
+.light {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 1);
+}
+
+.NavBar {
+    width: 100vw;
+    height: 9vh;
+}
+
+.body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3.5% 11% 0% 11%;
+}
+
+.foldersList {
+    width: 100%;
+    display: flex;
+    gap: 2%;
+    flex-wrap: wrap;
+}
+
+.folderContainer {
+    height: 5.8vh;
+    min-width: 12.2%;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+    font-size: 0.87rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5%;
+    padding-inline: 2%;
+    margin-bottom: 1.5%;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+
+.addFolderButton {
+    width: 17px;
+    aspect-ratio: 1/1;
+    margin-right: 1%;
+}
+
+.deleteIcon {
+    width: 17px;
+    aspect-ratio: 1/1;
+}
+
+.folderContainer span {
+    white-space: nowrap;
+}
+
+.filesList {
+    width: 100%;
+    flex: 1;
+    margin-top: 2.7%;
+    overflow-y: auto;
+    display: flex;
+    gap: 2.5%;
+    flex-wrap: wrap;
+    overflow: visible;
+}
+
+.createFileButton {
+    width: 20.4%;
+    height: 38vh;
+    border-radius: 6px;
+}
+
+.FileBox {
+    width: 20.4%;
+    height: 38vh;
+    border-radius: 6px;
+    position: relative;
+
+    cursor: pointer;
+}
+
+.fileNameContainer {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 17%;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    overflow: visible;
+}
+
+.createFileButton button {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 95, 255, 1);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 17%;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+
+.fileNameContainer img {
+    position: absolute;
+    top: -4%;
+    right: -4%;
+}
+
+.createFileButton button img {
+    width: 18%;
+    aspect-ratio: 1;
+}
+
+
+/* .deleteIcon{
+    width: 5%;
+    aspect-ratio: 1/1;
+    border: 1px solid maroon;
+}
+
+.deleteIcon img{
+    width: 5%;
+    aspect-ratio: 1/1;
+} */
+
+.selectedFolder {
+    background-color: rgba(255, 255, 255, 1);
+}

@@ -11,8 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { ThemeProvider } from "./Context/ThemeContext";
 import { ToastContainer, Bounce } from "react-toastify";
-import WorkSpaceOrModal from "./Pages/WorkspaceOrModal/WorkSpaceOrModal";
+import DashboardOrModal from "./Pages/DashBoardOrModal/DashBoardOrModal";
 import withAuth from "./Services/withAuth";
+import WorkSpace from "./Pages/WorkSpace/WorkSpace";
 
 function App() {
 
@@ -20,7 +21,7 @@ const token = localStorage.getItem("token");
 const isAuthenticated = !!token;
 
 const ProtectedSettings = withAuth((props) => <Settings {...props} />)
-const ProtectedWorkSpace = withAuth(WorkSpaceOrModal)
+const ProtectedDashboard = withAuth(DashboardOrModal)
 
 
 
@@ -46,9 +47,10 @@ const ProtectedWorkSpace = withAuth(WorkSpaceOrModal)
             <Route path="/signUp" element={<SignUp />} />
             {isAuthenticated ? (
               <>
-              <Route path="/workspace/dashboard" element={<ThemeProvider><ProtectedWorkSpace /></ThemeProvider> } />
-              <Route path="/workspace/:workspaceId/folder/:folderId" element={<ThemeProvider><ProtectedWorkSpace /></ThemeProvider>} />
+              <Route path="/dashBoard" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider> } />
+              <Route path="/dashBoard/:dashBoardId/folder/:folderId" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider>} />
               <Route path="/settings" element={<ProtectedSettings />} />
+              <Route path="/workspace/:fileId" element={<ThemeProvider><WorkSpace/></ThemeProvider>} />
               </>
           ) : (
             <Route path="/signIn" element={<SignIn />} />

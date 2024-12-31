@@ -1,25 +1,27 @@
 import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
 import { useEffect, useRef } from "react";
-import { createFolder, createForm, createFormInFolder, deleteFolder, deleteForm } from "../../Services/workspace";
 import { Bounce, toast } from "react-toastify";
+import { createFolder, deleteFolder } from "../../Services/folder";
+import { createFile, createFileInFolder, deleteFile } from "../../Services/file";
+
 
 function Modal({
   setShowModal,
   modalFor,
   folderFileName,
   setFolderFileName,
-  workSpaceId,
+  dashBoardId,
   token,
   setToastMessage,
-  setWorkSpace,
+  setDashBoard,
   toDelete,
   setModalFor,
   folderId,
-  formId,
+  fileId,
   setToDelete,
   selectedFolder,
-  setFolderForms
+  setFolderFiles
 
 }) {
   const modalRef = useRef(null);
@@ -39,16 +41,20 @@ function Modal({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(dashBoardId);
     if (modalFor === "Folder") {
       try {
-        const res = await createFolder(token, workSpaceId, folderFileName);
+        const res = await createFolder(token, dashBoardId, folderFileName);
+        console.log("API Endpoint:", `${URL}/api/dashBoard/${dashBoardId}/createFolder`);
+console.log("Dashboard ID:", dashBoardId);
+
 
         if (res.status === 201) {
           const data = await res.json();
+          const dashBoard = data.dashBoard
           const message = data.message;
           setFolderFileName("");
-          setWorkSpace(data.workspace);
+          setDashBoard(dashBoard);
           setToastMessage(message);
           setShowModal(false);
           setModalFor('');
@@ -78,14 +84,15 @@ function Modal({
           transition: Bounce,
         });
       }
-    } else if (modalFor === "Form") {
+    } else if (modalFor === "File") {
       try {
         const res = selectedFolder ? 
-        await createFormInFolder(token, workSpaceId, selectedFolder, folderFileName)
-        :await createForm(token, workSpaceId,folderFileName);
+        await createFileInFolder(token, dashBoardId, selectedFolder, folderFileName)
+        :await createFile(token, dashBoardId,folderFileName);
 
         if (res.status === 201) {
           const data =await res.json();
+          console.log(data);
           const message = data.message;
           setFolderFileName("");
           setToastMessage(message);
@@ -93,9 +100,9 @@ function Modal({
           setShowModal(false);
 
           if (selectedFolder) {
-            setFolderForms(data.folder.forms);
+            setFolderFiles(data.folder.files);
         } else {
-            setWorkSpace(data.workspace);
+            setDashBoard(data.dashBoard);
         }
 
         }
@@ -121,13 +128,13 @@ function Modal({
     const handleDeleteFolder =async (folderId) => {
   
       try{
-          const res = await deleteFolder(token, workSpaceId, folderId);
+          const res = await deleteFolder(token, dashBoardId, folderId);
   
           if(res.status === 200) {
   
             const data = await res.json();
   
-            setWorkSpace(prev => ({
+            setDashBoard(prev => ({
               ...prev,
               folders: prev.folders.filter((folder) => folder._id !== folderId),
             }));
@@ -163,20 +170,20 @@ function Modal({
       }
     };
 
-    const handleDeleteForm =async (formId) => {
+    const handleDeleteFile =async (fileId) => {
   
-      console.log(formId);
+      console.log(fileId);
   
       try{
-          const res = await deleteForm(token, workSpaceId, formId);
+          const res = await deleteFile(token, dashBoardId, fileId);
   
           if(res.status === 200) {
   
             const data = await res.json();
   
-            setWorkSpace((prev) => ({
+            setDashBoard((prev) => ({
               ...prev,
-              forms: prev.forms.filter((form) => form._id !== formId),
+              files: prev.files.filter((file) => file._id !== fileId),
             }));
             setToDelete(false)
             setShowModal(false);
@@ -220,7 +227,7 @@ function Modal({
             
             <div className={styles.buttons}>
               <button className={styles.done} type="submit" onClick={() => {
-                  modalFor === 'Folder' ? handleDeleteFolder(folderId) : handleDeleteForm(formId)
+                  modalFor === 'Folder' ? handleDeleteFolder(folderId) : handleDeleteFile(fileId)
                   }}>
                 Done
               </button>
@@ -258,6 +265,7 @@ function Modal({
               </button>
               <button
                 className={styles.cancel}
+                onClick={() => setShowModal(false)}
               >
                 Cancel
               </button>
@@ -266,7 +274,6 @@ function Modal({
         </div>
       )}
 
-      {modalFor === "delete" && <div className={styles.modalContent}></div>}
     </div>
   );
 }
@@ -278,15 +285,15 @@ Modal.propTypes = {
   folderFileName: PropTypes.string,
   setFolderFileName: PropTypes.func,
   setShowModal: PropTypes.func.isRequired,
-  workSpaceId: PropTypes.string.isRequired,
+  dashBoardId: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
   setToastMessage: PropTypes.func.isRequired,
-  setWorkSpace: PropTypes.func.isRequired,
+  setDashBoard: PropTypes.func.isRequired,
   toDelete: PropTypes.bool.isRequired,
   setModalFor: PropTypes.func.isRequired,
   folderId: PropTypes.string,
-  formId: PropTypes.string,
+  fileId: PropTypes.string,
   setToDelete: PropTypes.func,
   selectedFolder: PropTypes.string,
-  setFolderForms: PropTypes.func
+  setFolderFiles: PropTypes.func
 };

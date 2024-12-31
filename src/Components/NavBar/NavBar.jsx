@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import dropDownIcon from '../../assets/dropDown.png';
 import { useNavigate } from 'react-router-dom';
 
-export default function NavBar({workspaceName}) {
+export default function NavBar({dashBoardName, setToShare, setShowModal}) {
 
 
     // const {theme} = useTheme()
@@ -24,10 +24,10 @@ export default function NavBar({workspaceName}) {
   return (
     <div className={styles.navBar}>
 
-        <div className={styles.workSpaceNameAndSettings}>
+        <div className={styles.dashBoardNameAndSettings}>
             <div className={`${styles.dropDownContainer} ${isOpen ? styles.open : ''} `} onClick={toggleDropDown}>
             <div className={`${styles.dropDownHeader} ${isOpen ? styles.open : ''}`}>
-                <span className={`${styles.workSpaceName} ${styles.headerContent}`}>{workspaceName}</span>
+                <span className={`${styles.dashBoardName} ${styles.headerContent}`}>{dashBoardName}</span>
                 <span className={`${styles.icon} ${isOpen ? styles.open : ''} ${styles.headerContent}`}><img src={dropDownIcon} alt="dropDown" /></span>
             </div>
 
@@ -51,14 +51,19 @@ export default function NavBar({workspaceName}) {
         </div>
 
         <div className={styles.share}>
-            <button className={styles.shareButton}>Share</button>
+            <button className={styles.shareButton} onClick={() => {
+                setToShare(true)
+                setShowModal(true)
+            }}>Share</button>
         </div>
       </div>
   )
 };
 
 NavBar.propTypes = {
-    workspaceName: PropTypes.string.isRequired,
+    dashBoardName: PropTypes.string,
+    setShowModal: PropTypes.func,
+    setToShare: PropTypes.func,
 }
 
 

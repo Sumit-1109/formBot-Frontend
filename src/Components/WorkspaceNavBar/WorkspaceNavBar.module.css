@@ -1,0 +1,148 @@
+.WorkspaceNavBar{
+    display: flex;
+    background-color: rgba(24, 24, 27, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.formName{
+    position: absolute;
+    width: 15.5%;
+    height: 55%;
+    left: 1.5%;
+}
+
+.formName input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: rgba(55, 55, 62, 1);
+    color: white;
+    padding-inline: 5%;
+    font-family: 'Open Sans';
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 4px;
+}
+
+.formName input::placeholder{
+    color: rgba(118, 118, 118, 0.82);
+}
+
+.rightSide{
+    display: flex;
+}
+
+
+.screenSelector{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10%;
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1%;
+    align-items: center;
+}
+
+.screenSelector button{
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'Open Sans';
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    outline: none;
+    cursor: pointer;
+    transition: border 0.3s ease-in-out;
+}
+
+.flow{
+    flex: 0.5;
+}
+
+.response{
+    flex: 0.5;
+}
+
+.active{
+    border: 1px solid rgba(126, 166, 255, 1);
+}
+
+.inActive{
+    border: 1px solid transparent;
+}
+
+
+.rightSide{
+    right: 1.5%;
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.theme{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action{
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    align-items: center;
+    height: 45%;
+}
+
+.action button{
+    flex: 1;
+    border: none;
+    outline: none;
+    height: 100%;
+    color: white;
+    border-radius: 4px;
+    font-family: 'Open Sans';
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.close{
+    width: 6%;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.close img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.share{
+    background-color: rgba(132, 136, 144, 1);
+}
+
+.save{
+    background-color: rgba(74, 222, 128, 0.8);
+}

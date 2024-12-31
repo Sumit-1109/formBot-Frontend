@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer,toast, Bounce } from "react-toastify";
 import PropTypes from "prop-types";
 
-function Settings( {userId}) {
+function Settings() {
   const navigate = useNavigate();
 
   const [updateDetails, setUpdateDetails] = useState({
@@ -59,7 +59,7 @@ function Settings( {userId}) {
         const data = await res.json();
         const { message } = data;
 
-        navigate(`/workspace/${userId}/dashboard`, {state: {toastMessage: message}});        
+        navigate(`/dashBoard`, {state: {toastMessage: message}});        
 
       } else {
         const data = await res.json();

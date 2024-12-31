@@ -44,7 +44,7 @@ function Signin() {
   const handleChange = (e) => {
     setSignInDetails({
       ...signInDetails,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value.trim(),
     });
 
     setFieldErrors('');
@@ -69,7 +69,7 @@ function Signin() {
           password: ''
         });
 
-        navigate(`/workspace/dashboard`, {state: {toastMessage: message}});
+        navigate(`/dashboard`, {state: {toastMessage: message}});
 
       } else {
         const data = await res.json();
