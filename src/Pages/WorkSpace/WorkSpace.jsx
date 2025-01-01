@@ -1,4 +1,4 @@
-import styles from "./workSpace.module.css";
+import styles from "./workspace.module.css";
 import WorkspaceNavBar from "../../Components/WorkspaceNavBar/WorkspaceNavBar";
 import gif from "../../assets/gif.png";
 import text from "../../assets/text.png";
@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 import {v4 as uuidv4} from 'uuid';
 
 
-function WorkSpace() {
+function Workspace() {
   const { fileId } = useParams();
   const [formName, setFormName] = useState("");
   const [formElements, setFormElements] = useState([]);
@@ -281,4 +281,4 @@ function WorkSpace() {
   );
 }
 
-export default WorkSpace;
+export default Workspace;

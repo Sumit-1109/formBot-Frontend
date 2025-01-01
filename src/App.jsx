@@ -13,7 +13,7 @@ import Dashboardandmodal from "./Pages/Dashboardandmodal/Dashboardandmodal";
 import { ThemeProvider } from "./Context/ThemeContext";
 import { ToastContainer, Bounce } from "react-toastify";
 import withAuth from "./Services/withAuth";
-import WorkSpace from "./Pages/WorkSpace/WorkSpace";
+import Workspace from "./Pages/WorkSpace/WorkSpace";
 
 function App() {
 
@@ -50,7 +50,7 @@ const ProtectedDashboard = withAuth(Dashboardandmodal);
               <Route path="/dashBoard" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider> } />
               <Route path="/dashBoard/:dashBoardId/folder/:folderId" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider>} />
               <Route path="/settings" element={<ProtectedSettings />} />
-              <Route path="/workspace/:fileId" element={<ThemeProvider><WorkSpace/></ThemeProvider>} />
+              <Route path="/workspace/:fileId" element={<ThemeProvider><Workspace/></ThemeProvider>} />
               </>
           ) : (
             <Route path="/signIn" element={<SignIn />} />
