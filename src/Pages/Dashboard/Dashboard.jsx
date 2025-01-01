@@ -10,7 +10,7 @@ import newFolder from "../../assets/newfolder.png";
 import addForm from "../../assets/add.png";
 import PropTypes from "prop-types";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast, Bounce } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 import deleteIcon from "../../assets/delete.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFolderDashBoard } from "../../Services/folder";
@@ -135,19 +135,6 @@ function Dashboard({
     <div
       className={`${styles.Dashboard} ${theme ? styles.dark : styles.light}`}
     >
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
 
       <div className={styles.NavBar}>
         <NavBar

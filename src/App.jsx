@@ -7,11 +7,11 @@ import SignUp from "./Pages/User/SignUp/SignUp";
 import Home from "./Pages/Home/Home";
 import Settings from "./Pages/Settings/Settings";
 import "react-toastify/dist/ReactToastify.css";
+import Dashboardandmodal from "./Pages/Dashboardandmodal/Dashboardandmodal";
 
 
 import { ThemeProvider } from "./Context/ThemeContext";
 import { ToastContainer, Bounce } from "react-toastify";
-import DashboardOrModal from "./Pages/DashBoardOrModal/DashBoardOrModal";
 import withAuth from "./Services/withAuth";
 import WorkSpace from "./Pages/WorkSpace/WorkSpace";
 
@@ -20,8 +20,8 @@ function App() {
 const token = localStorage.getItem("token");
 const isAuthenticated = !!token;
 
-const ProtectedSettings = withAuth((props) => <Settings {...props} />)
-const ProtectedDashboard = withAuth(DashboardOrModal)
+const ProtectedSettings = withAuth((props) => <Settings {...props} />);
+const ProtectedDashboard = withAuth(Dashboardandmodal);
 
 
 

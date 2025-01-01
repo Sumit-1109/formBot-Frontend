@@ -1,11 +1,10 @@
+
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import Dashboard from "../Dashboard/Dashboard";
 // import ShareModal from "../ShareModal/ShareModal";
 
-function DashboardOrModal() {
-
-
+function Dashboardandmodal() {
 
   const [showModal, setShowModal] = useState(false);
   const [modalFor, setModalFor] = useState("");
@@ -33,7 +32,6 @@ function DashboardOrModal() {
 
   const [toDelete, setToDelete] = useState(false);
   const [toShare, setToShare] = useState(false);
-
 
 
   return (
@@ -99,4 +97,5 @@ function DashboardOrModal() {
   );
 }
 
-export default DashboardOrModal;
+export default Dashboardandmodal;
+
