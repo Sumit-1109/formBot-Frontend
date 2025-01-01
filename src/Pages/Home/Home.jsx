@@ -4,7 +4,7 @@ import formbot from "../../assets/formbot.png";
 import triangle from "../../assets/triangleHomePage.png";
 import semiCircle from "../../assets/semiCircleHomePage.png";
 import { useNavigate } from "react-router-dom";
-import homeImage from '../../assets/HomeImage.png';
+import homeImage from '../../assets/homeImage.png';
 
 function Home() {
 
