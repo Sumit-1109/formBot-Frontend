@@ -32,6 +32,16 @@ export const deleteFile = (token, dashBoardId, formId) => {
     });
 };
 
+export const deleteFolderFile = (token, dashBoardId, folderId, fileId) => {
+    return fetch(`${URL}/api/file/${dashBoardId}/folder/${folderId}/${fileId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        }
+    })
+}
+
 export const getFile = async (fileId, token) =>{
     return fetch(`${URL}/api/workspace/${fileId}`, {
         method: 'GET',

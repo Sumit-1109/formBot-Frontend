@@ -109,19 +109,15 @@ function Dashboard({
 
       try {
         const res = await getFolderDashBoard(token, dashBoardId, routeFolderId);
+
+        const data = await res.json();
+        console.log(data);
         if (res.status === 200) {
-          const data = await res.json();
           setSelectedFolder(routeFolderId);
-          if(data.folder && Array.isArray(data.folder.files)){
           setFolderFiles(data.folder.files);
-          } else{
-            console.log("No folder found");
-            setFolderFiles([]);
-          }
-          console.log(dashBoard);
-          console.log(dashBoard.folders);
+          console.log(data.folder.files);
         } else {
-          console.error(`Failed to fetch folder files: ${res.statusText}`);
+          setFolderFiles([]);
         }
       } catch (err) {
         console.log(err);
@@ -232,11 +228,12 @@ function Dashboard({
                       src={deleteIcon}
                       className={styles.deleteIcon}
                       alt="deleteIcon"
-                      onClick={() => {
+                      onClick={(e) => {
                         setFileId(file._id);
                         setToDelete(true);
                         setShowModal(true);
                         setModalFor("File");
+                        e.stopPropagation();
                       }}
                     />
                   </div>

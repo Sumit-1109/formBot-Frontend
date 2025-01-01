@@ -3,7 +3,7 @@ import styles from "./Modal.module.css";
 import { useEffect, useRef } from "react";
 import { Bounce, toast } from "react-toastify";
 import { createFolder, deleteFolder } from "../../Services/folder";
-import { createFile, createFileInFolder, deleteFile } from "../../Services/file";
+import { createFile, createFileInFolder, deleteFile, deleteFolderFile } from "../../Services/file";
 
 
 function Modal({
@@ -86,12 +86,13 @@ console.log("Dashboard ID:", dashBoardId);
       }
     } else if (modalFor === "File") {
       try {
+        console.log('selectedFolder', selectedFolder);
         const res = selectedFolder ? 
         await createFileInFolder(token, dashBoardId, selectedFolder, folderFileName)
         :await createFile(token, dashBoardId,folderFileName);
 
         if (res.status === 201) {
-          const data =await res.json();
+          const data = await res.json();
           console.log(data);
           const message = data.message;
           setFolderFileName("");
@@ -170,13 +171,73 @@ console.log("Dashboard ID:", dashBoardId);
       }
     };
 
-    const handleDeleteFile =async (fileId) => {
+    const handleDeleteFile =async (fileId, folderId) => {
+      console.log("Deleting file:", { fileId, folderId, dashBoardId });
+
+
+      if (folderId) {
+        try{
+          console.log("Calling deleteFolderFile");
+          const res = await deleteFolderFile(token, dashBoardId, folderId, fileId);
   
-      console.log(fileId);
+          if(res.status === 200) {
+            const data = await res.json();
+            console.log("File deleted from folder:", data);
+
+            setFolderFiles(data.updatedFiles);
   
-      try{
+            setDashBoard((prev) => {
+              if(!prev || !Array.isArray(prev.folders)) return prev;
+
+              const updatedFolders = prev.folders.map((folder) => 
+                folder._id === folderId 
+                  ? {...folder, files: data.updatedFiles}
+                  : folder
+              );
+
+              return {...prev, folders: updatedFolders}
+            })
+
+            
+
+
+  
+            setToastMessage(data.message);
+            setToDelete(false);
+            setModalFor('');
+            setShowModal(false);
+            toast.success(data.message, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+    });
+          }
+        }catch (err) {
+          console.log(err);
+          toast.error("An unexpected error occurred", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+    });
+        }
+      } else {
+        try{
+
           const res = await deleteFile(token, dashBoardId, fileId);
-  
+        
+
           if(res.status === 200) {
   
             const data = await res.json();
@@ -215,7 +276,10 @@ console.log("Dashboard ID:", dashBoardId);
                       transition: Bounce,
           });
       }
+      }
+     
     };
+
 
   return (
     <div className={styles.modal}>
@@ -227,7 +291,7 @@ console.log("Dashboard ID:", dashBoardId);
             
             <div className={styles.buttons}>
               <button className={styles.done} type="submit" onClick={() => {
-                  modalFor === 'Folder' ? handleDeleteFolder(folderId) : handleDeleteFile(fileId)
+                  modalFor === 'Folder' ? handleDeleteFolder(folderId) : handleDeleteFile(fileId, selectedFolder)
                   }}>
                 Done
               </button>

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Dashboard from "../Dashboard/Dashboard";
 import Modal from "../Modal/Modal";
+import Dashboard from "../Dashboard/Dashboard";
 // import ShareModal from "../ShareModal/ShareModal";
 
 function DashboardOrModal() {
