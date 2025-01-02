@@ -1,25 +1,33 @@
 const URL = 'http://localhost:8000';
 
 
-
-export const sharingLink = (dashBoardId, token, role) => {
-    return fetch(`${URL}/api/${dashBoardId}/shareLink`, {
+export const emailLink = (dashBoardId, token, email, role) => {
+    return fetch(`${URL}/api/share/dashboard/email`, {
         method: 'POST',
         headers: {
             "Content-Type" : "application/json",
             'Authorization' : token,
         },
-        body: JSON.stringify({role}),
+        body: JSON.stringify({dashBoardId, email, role}),
     });
 };
 
-export const emailLink = (dashBoardId, token, email, role) => {
-    return fetch(`${URL}/api/${dashBoardId}/shareEmail`, {
+export const sharingLink = (dashBoardId, token, role) => {
+    return fetch(`${URL}/api/share/dashboard/link`, {
         method: 'POST',
         headers: {
             "Content-Type" : "application/json",
             'Authorization' : token,
         },
-        body: JSON.stringify({email, role}),
+        body: JSON.stringify({dashBoardId, role}),
+    });
+};
+
+export const sharedLinkAccess = (token) => {
+    return fetch(`${URL}/api/share/dashboard/link/${token}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type" : "application/json",
+        }
     });
 };

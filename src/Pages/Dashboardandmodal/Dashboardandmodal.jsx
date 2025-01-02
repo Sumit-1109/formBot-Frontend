@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import Dashboard from "../Dashboard/Dashboard";
+import ShareModal from "../ShareModal/ShareModal";
 // import ShareModal from "../ShareModal/ShareModal";
 
 function Dashboardandmodal() {
@@ -83,7 +84,7 @@ function Dashboardandmodal() {
         />
       )}
 
-      {/* {
+      {
         (showModal && toShare && dashBoardId) && (
           <ShareModal  
             setShowModal={setShowModal} 
@@ -92,7 +93,7 @@ function Dashboardandmodal() {
             token={token}
            />
         )
-      } */}
+      }
     </div>
   );
 }

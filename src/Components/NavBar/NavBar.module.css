@@ -1,6 +1,15 @@
+body.light{
+    background-color: white;
+    color: black;
+}
+body.dark{
+    background-color: rgba(24, 24, 27);
+    color: white;
+}
+
+
 .navBar{
     display: flex;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
     width: 100%;
     height: 100%;
     justify-content: space-between;
@@ -9,7 +18,19 @@
     padding-right: 4.2%;
 }
 
-.workSpaceNameAndSettings {
+.navBar.light{
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid rgba(24, 24, 27);
+}
+
+.navBar.dark{
+    background-color: rgba(24, 24, 27);
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.dashBoardNameAndSettings {
     width: 36%;
     height: 65%;
     position: relative;
@@ -21,10 +42,17 @@
     height: 100%;
     background-color: transparent;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.92);
     font-family: 'Open Sans';
     font-weight: 600;
     font-size: 0.85rem;
+}
+
+.dropDownHeader.dark{
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.dropDownHeader.light{
+    border: 1px solid rgba(24, 24, 27);
 }
 
 .dropDownContainer.open{
@@ -44,9 +72,16 @@
 }
 
 .dropDownHeader.open{
-    background-color: rgba(29, 29, 29, 1);
     border-radius: 8px 8px 0px 0px;
     border-bottom: none ;
+}
+
+.dropDownHeader.open.light{
+    background-color: white;
+}
+
+.dropDownHeader.open.dark{
+    background-color: rgba(29, 29, 29, 1);
 }
 
 .icon{
@@ -63,10 +98,18 @@
     width: 100%;
     position: absolute;
     top: 100%;
-    background-color: rgba(29, 29, 29, 1);
-    border: 1px solid rgba(255, 255, 255, 0.16);
     border-bottom: none;
     z-index: 10005;
+}
+
+.dropDownList.light{
+    background-color: white;
+    border: 1px solid black;
+}
+
+.dropDownList.dark{
+    background-color: rgba(29, 29, 29, 1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .list{
@@ -75,77 +118,24 @@
 }
 
 .listItems{
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
     height: 6.75vh;
     display: flex;
     align-items: center;
     padding-left: 5%;
 }
 
+.listItems.light{
+    border-bottom: 1px solid black;
+}
+.listItems.dark{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
 .logOut{
     color: rgba(255, 165, 76, 1);
 }
 
-
-/* .workSpaceNameAndSettings select{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.92);
-    font-family: 'Open Sans';
-    font-weight: 600;
-    font-size: 0.85rem;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url('../../assets/dropDown.png');
-    background-repeat: no-repeat;
-    background-position: 95%;
-    padding-left: 3.5%;
-}
-
-.workSpaceNameAndSettings select.open{
-    background-image: url('../../assets/dropUp.png');
-    background-position: 94%;
-    background-color: rgba(29, 29, 29, 1);
-}
-
-.workSpaceNameAndSettings select option{
-    color: red;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-
-}
-
-.option{
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: red;
-} */
-
-/* .workSpaceNameAndSettings select{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    color: rgba(255, 255, 255, 0.92);
-    font-family: 'Open Sans';
-    font-size: 0.85rem;
-    font: 600;
-    /* padding-inline: 1% 2.5%; */
-    /* -webkit-appearance: none;
-    -moz-appearance: none;
-    padding-right: 20%;
-    padding-left: 10%;
-    background-repeat: no-repeat;
-    background-position: 95%;
-    background-image: url('../../assets/dropDown.png');
-} */
-
-.workSpaceNameandsettings select:focus{
+.dashBoardNameandsettings select:focus{
     border: none;
     outline: none;
 }

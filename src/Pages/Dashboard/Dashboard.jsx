@@ -147,7 +147,7 @@ function Dashboard({
       <div className={styles.body}>
         <div className={styles.foldersList}>
           <button
-            className={styles.folderContainer}
+            className={`${styles.folderContainer} ${theme ? styles.dark : styles.light}`}
             onClick={() => {
               setShowModal(true);
               setModalFor("Folder");
@@ -165,7 +165,7 @@ function Dashboard({
             dashBoard.folders.map((folder) => (
               <button
                 key={folder._id}
-                className={`${styles.folderContainer} ${
+                className={`${styles.folderContainer} ${theme ? styles.dark : styles.light} ${
                   selectedFolder === folder._id ? styles.selectedFolder : ""
                 }`}
                 onClick={() => {
@@ -209,7 +209,7 @@ function Dashboard({
                   className={styles.FileBox}
                   onClick={() => navigate(`/workspace/${file._id}`)}
                 >
-                  <div className={styles.fileNameContainer}>
+                  <div className={`${styles.fileNameContainer} ${theme ? styles.dark : styles.light}`}>
                     <span>{file.name}</span>
                     <img
                       src={deleteIcon}
@@ -233,7 +233,7 @@ function Dashboard({
                   className={styles.FileBox}
                   onClick={() => navigate(`/workspace/${file._id}`)}
                 >
-                  <div className={styles.fileNameContainer}>
+                  <div className={`${styles.fileNameContainer} ${theme ? styles.dark : styles.light}`}>
                     <span>{file.name}</span>
                     <img
                       src={deleteIcon}

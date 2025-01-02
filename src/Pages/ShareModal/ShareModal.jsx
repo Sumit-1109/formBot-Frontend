@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./ShareModal.module.css";
 import PropTypes from "prop-types";
 import close from "../../assets/close.png";
-import { emailLink, sharingLink } from "../../Services/dashBoard";
 import { Bounce, toast } from "react-toastify";
+import { emailLink, sharingLink } from "../../Services/sharing";
 
 function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
 
@@ -51,6 +51,7 @@ function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
                 transition: Bounce,
               });
               setEmail('');
+              setError('');
         } else {
             setError(data.message);
         }
@@ -110,8 +111,8 @@ function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
 
           <div className={styles.dropDown}>
             <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="viewer">View</option>
-                <option value="editor">Edit</option>
+                <option value="view">View</option>
+                <option value="edit">Edit</option>
             </select>
           </div>
 
@@ -140,19 +141,21 @@ function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
         </div>
       </div>
 
-        </div>
 
-      <div className={styles.buttons}>
+
         <button
-          className={styles.cancel}
+          className={styles.cancelButton}
           onClick={() => {
             setShowModal(false);
             setToShare(false);
           }}
         >
-          <img src={close} alt="" />
+          <img src={close} alt="" className={styles.cancel} />
         </button>
-      </div>
+
+        </div>
+
+      
     </div>
   );
 }

@@ -12,12 +12,12 @@
     flex-direction: column;
 }
 
-.dark {
-    background-color: #18181B;
+.Dashboard.dark {
+    background-color: rgba(24, 24, 27);
     color: rgba(255, 255, 255, 1);
 }
 
-.light {
+.Dashboard.light {
     background-color: rgba(255, 255, 255, 1);
     color: rgba(0, 0, 0, 1);
 }
@@ -48,7 +48,6 @@
     min-width: 12.2%;
     border: none;
     outline: none;
-    background-color: rgba(255, 255, 255, 0.08);
     color: rgba(255, 255, 255, 0.92);
     font-weight: 600;
     font-size: 0.87rem;
@@ -60,6 +59,13 @@
     margin-bottom: 1.5%;
     cursor: pointer;
     border-radius: 6px;
+}
+.folderContainer.dark{
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.folderContainer.light{
+    background-color: rgba(24, 24, 27);
 }
 
 
@@ -107,7 +113,6 @@
 .fileNameContainer {
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
     border: none;
     display: flex;
     align-items: center;
@@ -119,6 +124,15 @@
     color: rgba(255, 255, 255, 1);
     position: absolute;
     overflow: visible;
+    /* background-color: red; */
+}
+
+.fileNameContainer.light{
+    background-color: rgba(24, 24, 27);
+}
+
+.fileNameContainer.dark{
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .createFileButton button {
@@ -148,18 +162,12 @@
     aspect-ratio: 1;
 }
 
-
-/* .deleteIcon{
-    width: 5%;
-    aspect-ratio: 1/1;
-    border: 1px solid maroon;
+.selectedFolder.dark {
+    background-color: rgba(255, 255, 255, 1);
 }
 
-.deleteIcon img{
-    width: 5%;
-    aspect-ratio: 1/1;
-} */
-
-.selectedFolder {
-    background-color: rgba(255, 255, 255, 1);
+.selectedFolder.light{
+    background-color: white;
+    border: 1px solid rgba(24, 24, 27);
+    color: black;
 }
