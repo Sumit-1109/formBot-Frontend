@@ -16,10 +16,5 @@
   },
   "env": {
     "VERCEL_BUILDER_IGNORE_FILE": "**/node_modules/**"
-  },
-  "cache": {
-    "includes": [
-      "src/**/*"
-    ]
   }
 }
