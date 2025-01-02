@@ -1,4 +1,4 @@
-import styles from "./workspace.module.css";
+import  "./workspace.css";
 import WorkspaceNavBar from "../../Components/WorkspaceNavBar/WorkspaceNavBar";
 import gif from "../../assets/gif.png";
 import text from "../../assets/text.png";
@@ -120,8 +120,8 @@ function Workspace() {
   };
 
   return (
-    <div className={styles.workSpacePage}>
-      <div className={styles.WorkspaceNavBar}>
+    <div className='workSpacePage'>
+      <div className='WorkspaceNavBar'>
         <WorkspaceNavBar
           formName={formName}
           setFormName={setFormName}
@@ -129,13 +129,13 @@ function Workspace() {
         />
       </div>
 
-      <div className={styles.body}>
-        <div className={styles.itemBox}>
-          <div className={styles.bubbles}>
-            <div className={styles.heading}>
+      <div className='body'>
+        <div className='itemBox'>
+          <div className='bubbles'>
+            <div className='heading'>
               <p>Bubbles</p>
             </div>
-            <div className={styles.bubbleButtons}>
+            <div className='bubbleButtons'>
               <button onClick={() => addElement("text", "Text")}>
                 <img src={text} alt="text" />
                 Text
@@ -154,11 +154,11 @@ function Workspace() {
               </button>
             </div>
           </div>
-          <div className={styles.inputs}>
-            <div className={styles.heading}>
+          <div className='inputs'>
+            <div className='heading'>
               <p>Inputs</p>
             </div>
-            <div className={styles.inputButtons}>
+            <div className='inputButtons'>
               <button onClick={() => addElement("inputText", "Input Text")}>
                 <img src={textInput} alt="txt" />
                 Text
@@ -191,9 +191,9 @@ function Workspace() {
           </div>
         </div>
 
-        <div className={styles.formArea}>
-          <div className={styles.formComponents}>
-            <div className={styles.formStart}>
+        <div className='formArea'>
+          <div className='formComponents'>
+            <div className='formStart'>
               <img src={flag} alt="flag" />
               <p>Start</p>
             </div>
@@ -201,8 +201,8 @@ function Workspace() {
             {formElements.map((element, index) => {
               console.log('Key:', element.id);
               return(
-              <div key={element.id} className={styles.formElement}>
-                <div className={styles.deletePng}>
+              <div key={element.id} className='formElement'>
+                <div className='deletePng'>
                   <img
                     src={deletePng}
                     alt="delete"
@@ -253,14 +253,14 @@ function Workspace() {
                   />
                 )}
                 {element.type === "inputRating" && (
-                  <div className={styles.ratingContainer}>
+                  <div className='ratingContainer'>
                     {[1, 2, 3, 4, 5].map((star) => (
                       <div
                         key={star}
                         className={
                           element.content >= star
-                            ? styles.selectedStar
-                            : styles.star
+                            ? 'selectedStar'
+                            : 'star'
                         }
                         onClick={() => handleContextChange(index, star)}
                       >
