@@ -1,0 +1,22 @@
+{
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "dist"
+        }
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/$1" }
+    ],
+    "functions": {
+      "source": "api"
+    },
+    "env": {
+      "VERCEL_REGION": "iad1",  
+      "CASE_SENSITIVE_PATHS": "true" 
+    }
+  }
+  
