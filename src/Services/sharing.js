@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8000';
+const URL = 'https://formbot-backend-nbib.onrender.com';
 
 export const emailLink = (dashBoardId, token, email, role) => {
   return fetch(`${URL}/api/share/dashboard/email`, {

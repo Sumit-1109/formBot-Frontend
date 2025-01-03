@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8000';
+const URL = 'https://formbot-backend-nbib.onrender.com';
 
 export const createFile = (token, dashBoardId, fileName) => {
     return fetch(`${URL}/api/file/${dashBoardId}/createfile`,{

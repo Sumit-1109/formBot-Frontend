@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8000';
+const URL = 'https://formbot-backend-nbib.onrender.com';
 
 export const getFolderDashBoard = (token, dashBoardId, folderId) => {
     return fetch(`${URL}/api/folder/${dashBoardId}/folder/${folderId}`, {
