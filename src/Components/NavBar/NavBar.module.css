@@ -174,3 +174,8 @@ body.dark{
     color: rgba(255, 255, 255, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.16)
 }
+
+.dropDownImage{
+    width: 1rem;
+    height: 1rem;
+}

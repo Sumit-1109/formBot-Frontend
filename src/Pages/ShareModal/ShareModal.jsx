@@ -6,15 +6,14 @@ import { Bounce, toast } from "react-toastify";
 import { emailLink, sharingLink } from "../../Services/sharing";
 
 function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
-
-    const [role, setRole] = useState("viewer");
-    const [email, setEmail] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-
-    const modalRef = useRef(null);
+  const [role, setRole] = useState("viewer");
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   
-    const handleClickOutside = (e) => {
+  const modalRef = useRef(null);
+
+  const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       setShowModal(false);
       setToShare(false);
@@ -23,125 +22,129 @@ function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleEmailInvite = async () => {
-    
     setIsLoading(true);
-
-    try{
-        const res = await emailLink(dashBoardId ,token, email, role);
-
-        const data =await res.json();
-
-        if (res.status === 200){
-            toast.success(data.message, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                transition: Bounce,
-              });
-              setEmail('');
-              setError('');
-        } else {
-            setError(data.message);
-        }
-    } catch (err){
-        console.log(err);
-        toast.error("An unexpected error occurred", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                transition: Bounce,
-              });;
+    console.log(dashBoardId);
+    try {
+      const res = await emailLink(dashBoardId, token, email, role);
+      const data = await res.json();
+      if (res.status === 200) {
+        toast.success('Dashboard shared successfully', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Bounce,
+        });
+        setEmail('');
+        setError('');
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("An unexpected error occurred:", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        transition: Bounce,
+      });
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleGenerateLink = async () => {
     setIsLoading(true);
-
-    try{
-        const res = await sharingLink(dashBoardId, token, role);
-
-        const data = await res.json();
-
-        if(res.status === 201){
-            navigator.clipboard.writeText(data.shareLink);
-            toast.success(data.message, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                transition: Bounce,
-              });
-        } else {
-            console.log(data.message);
-        }
+    try {
+      const res = await sharingLink(dashBoardId, token, role);
+      const data = await res.json();
+      if (res.status === 201) {
+        navigator.clipboard.writeText(data.link);
+        toast.success(data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Bounce,
+        });
+      } else {
+        console.error(data.message);
+      }
     } catch (err) {
-        console.log(err);
-    } finally{
-        setIsLoading(false);
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className={styles.ShareModalPage}>
-
       <div className={styles.modalContent} ref={modalRef}>
-
-          <div className={styles.dropDown}>
-            <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="view">View</option>
-                <option value="edit">Edit</option>
-            </select>
-          </div>
+        <div className={styles.dropDown}>
+          <select
+            name="role"
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="view">View</option>
+            <option value="edit">Edit</option>
+          </select>
+        </div>
 
         <div className={styles.emailInvite}>
-        <div className={styles.heading}>
-          <h1 htmlFor="folderName">Invite by Email</h1>
-        </div>
-        <div className={styles.input}>
-            <input type="text" placeholder="Enter email address" value={email} onChange={(e) => setEmail(e.target.value) } />
+          <div className={styles.heading}>
+            <h1>Invite by Email</h1>
+          </div>
+          <div className={styles.input}>
+            <input
+              type="text"
+              placeholder="Enter email address"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError('');
+              }}
+            />
             <div className={styles.error}>
-                <span>{error}</span>
+              <span>{error}</span>
             </div>
-        </div>
-        <div className={styles.sendButton}>
-            <button onClick={handleEmailInvite} disabled={isLoading || !email}>{isLoading ? "Sending..." : "Send Invite"}</button>
-        </div>
+          </div>
+          <div className={styles.sendButton}>
+            <button onClick={handleEmailInvite}>
+              {isLoading ? "Sending..." : "Send Invite"}
+            </button>
+          </div>
         </div>
 
         <div className={styles.linkInvite}>
-        <div className={styles.heading}>
-          <h1 htmlFor="folderName">Invite Link</h1>
+          <div className={styles.heading}>
+            <h1>Invite Link</h1>
+          </div>
+          <div className={styles.copyButton}>
+            <button
+              className={styles.copyButton}
+              onClick={handleGenerateLink}
+              disabled={isLoading}
+            >
+              {isLoading ? "Generating..." : "Copy Link"}
+            </button>
+          </div>
         </div>
-
-        <div className={styles.sendButton}>
-            <button className={styles.copyButton} onClick={handleGenerateLink} disabled={isLoading}>{isLoading ? "Generating..." : "Copy Link"}</button>
-        </div>
-      </div>
-
-
 
         <button
           className={styles.cancelButton}
@@ -150,21 +153,18 @@ function ShareModal({ setShowModal, setToShare, dashBoardId, token }) {
             setToShare(false);
           }}
         >
-          <img src={close} alt="" className={styles.cancel} />
+          <img src={close} alt="Close" className={styles.cancel} />
         </button>
-
-        </div>
-
-      
+      </div>
     </div>
   );
 }
 
-export default ShareModal;
-
 ShareModal.propTypes = {
-  setToShare: PropTypes.func,
-  setShowModal: PropTypes.func,
+  setToShare: PropTypes.func.isRequired,
+  setShowModal: PropTypes.func.isRequired,
   dashBoardId: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
 };
+
+export default ShareModal;

@@ -10,3 +10,13 @@ export const getDashBoard = (token) => {
         },
     });
 };
+
+export const getSharedDashBoard = (token) => {
+    return fetch(`${URL}/api/dashboard/shared`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : token,
+        },
+    });
+};

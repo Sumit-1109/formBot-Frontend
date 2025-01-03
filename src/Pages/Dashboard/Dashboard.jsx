@@ -33,10 +33,13 @@ function Dashboard({
   folderFiles,
   setFolderFiles,
   setToShare,
+  handleDashBoardClick,
+  sharedDashboards,
 }) {
   const { theme } = useTheme();
   const { folderId: routeFolderId } = useParams();
   const navigate = useNavigate();
+  const {dbID} = useParams();
 
   useEffect(() => {
     if (!token) {
@@ -71,13 +74,8 @@ function Dashboard({
         if (res.status === 200) {
           const data = await res.json();
           const dashBoard = await data.dashBoard;
-          if (dashBoard) {
-            setDashBoard(dashBoard);
-            setDashBoardId(dashBoard._id);
-            console.log(dashBoard);
-          } else {
-            setDashBoard(null);
-          }
+          setDashBoard(dashBoard);
+          setDashBoardId(dashBoard._id);
         }
       } catch (err) {
         console.log("Failed to fetch dashboard", err);
@@ -86,6 +84,29 @@ function Dashboard({
 
     fetchDashBoard();
   }, [token]);
+
+  useEffect(() => {
+    const fetchSharedDashBoard = async () => {
+      if (!dbID) return;
+
+      try {
+        const res = await fetch(`/api/dashboard/${dbID}`);
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setDashBoard(data.dashBoard);
+          setDashBoardId(data.dashBoardId);
+        } else {
+          toast.error("Failed to load the shared dashboard");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Error fetching the shared dashboard data");
+      }
+    };
+
+    fetchSharedDashBoard();
+  }, [dashBoardId, dbID, setDashBoard, setDashBoardId]);
 
   useEffect(() => {
     if (!routeFolderId) {
@@ -135,19 +156,22 @@ function Dashboard({
     <div
       className={`${styles.Dashboard} ${theme ? styles.dark : styles.light}`}
     >
-
       <div className={styles.NavBar}>
         <NavBar
           dashBoardName={dashBoard.name}
           setToShare={setToShare}
           setShowModal={setShowModal}
+          handleDashBoardClick={handleDashBoardClick}
+          sharedDashboards={sharedDashboards}
         />
       </div>
 
       <div className={styles.body}>
         <div className={styles.foldersList}>
           <button
-            className={`${styles.folderContainer} ${theme ? styles.dark : styles.light}`}
+            className={`${styles.folderContainer} ${
+              styles.createFolderButton
+            } ${theme ? styles.dark : styles.light}`}
             onClick={() => {
               setShowModal(true);
               setModalFor("Folder");
@@ -165,7 +189,9 @@ function Dashboard({
             dashBoard.folders.map((folder) => (
               <button
                 key={folder._id}
-                className={`${styles.folderContainer} ${theme ? styles.dark : styles.light} ${
+                className={`${styles.folderContainer} ${
+                  theme ? styles.dark : styles.light
+                } ${
                   selectedFolder === folder._id ? styles.selectedFolder : ""
                 }`}
                 onClick={() => {
@@ -209,7 +235,11 @@ function Dashboard({
                   className={styles.FileBox}
                   onClick={() => navigate(`/workspace/${file._id}`)}
                 >
-                  <div className={`${styles.fileNameContainer} ${theme ? styles.dark : styles.light}`}>
+                  <div
+                    className={`${styles.fileNameContainer} ${
+                      theme ? styles.dark : styles.light
+                    }`}
+                  >
                     <span>{file.name}</span>
                     <img
                       src={deleteIcon}
@@ -233,11 +263,17 @@ function Dashboard({
                   className={styles.FileBox}
                   onClick={() => navigate(`/workspace/${file._id}`)}
                 >
-                  <div className={`${styles.fileNameContainer} ${theme ? styles.dark : styles.light}`}>
+                  <div
+                    className={`${styles.fileNameContainer} ${
+                      theme ? styles.dark : styles.light
+                    }`}
+                  >
                     <span>{file.name}</span>
                     <img
                       src={deleteIcon}
-                      className={styles.deleteIcon}
+                      className={`${styles.deleteIcon} ${
+                        theme ? styles.dark : styles.light
+                      }  `}
                       alt="deleteIcon"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -276,4 +312,6 @@ Dashboard.propTypes = {
   folderFiles: PropTypes.array,
   setFolderFiles: PropTypes.func,
   setToShare: PropTypes.func,
+  handleDashBoardClick: PropTypes.func,
+  sharedDashboards: PropTypes.array,
 };

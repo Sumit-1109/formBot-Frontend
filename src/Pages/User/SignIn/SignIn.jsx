@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import triangle from "../../../assets/triangle.png";
 import EclipseRight from "../../../assets/EclipseRight.png";
 import EclipseBottom from "../../../assets/EclipseBottom.png";
+import google from '../../../assets/google.png';
+import backArrow from '../../../assets/backarrow.png';
 import { signIn } from '../../../Services/client';
 
 function Signin() {
@@ -98,6 +100,7 @@ function Signin() {
         transition={Bounce}
       />
 
+            <img className={styles.backArrow} src={backArrow} alt="back" onClick={() => navigate(-1)} />
       <img className={styles.triangle} src={triangle} alt="triangle" />
       <img
         className={styles.EclipseRight}
@@ -152,7 +155,7 @@ function Signin() {
           <div className={styles.buttons}>
             <button type="submit">Log In</button>
             <div className={styles.or}>OR</div>
-            <button type="none">Sign Up with Google</button>
+            <button type="none"><img className={styles.googleIcon} src={google} alt="google" />Sign Up with Google</button>
           </div>
         </form>
 

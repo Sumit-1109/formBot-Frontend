@@ -45,9 +45,6 @@ function Modal({
     if (modalFor === "Folder") {
       try {
         const res = await createFolder(token, dashBoardId, folderFileName);
-        console.log("API Endpoint:", `${URL}/api/dashBoard/${dashBoardId}/createFolder`);
-console.log("Dashboard ID:", dashBoardId);
-
 
         if (res.status === 201) {
           const data = await res.json();

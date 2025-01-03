@@ -20,3 +20,25 @@ export const getForm = async (formId, token) => {
         }
     })
 }
+
+export const startResponse = async (formId) => {
+    const response = await fetch(`/api/form/${formId}/start`, { method: 'POST' });
+    return response.json();
+  };
+  
+  export const saveResponse = async (formId, responseId, responses) => {
+    await fetch(`/api/form/${formId}/respond`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ responseId, responses }),
+    });
+  };
+  
+  export const submitResponse = async (formId, responseId) => {
+    await fetch(`/api/form/${formId}/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ responseId }),
+    });
+  };
+  

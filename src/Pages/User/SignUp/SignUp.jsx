@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import triangle from "../../../assets/triangle.png";
 import EclipseRight from "../../../assets/EclipseRight.png";
 import EclipseBottom from "../../../assets/EclipseBottom.png";
+import google from '../../../assets/google.png';
+import backArrow from '../../../assets/backarrow.png';
 import { useState } from "react";
 import { signUp } from "../../../Services/client";
 
@@ -93,7 +95,7 @@ function SignUp() {
         theme="dark"
         transition={Bounce}
       />
-
+      <img className={styles.backArrow} src={backArrow} alt="back" onClick={() => navigate(-1)} />
       <img className={styles.triangle} src={triangle} alt="triangle" />
       <img
         className={styles.EclipseRight}
@@ -191,7 +193,7 @@ function SignUp() {
           <div className={styles.buttons}>
             <button type="submit">Sign Up</button>
             <div className={styles.or}>OR</div>
-            <button type="none">Sign Up with Google</button>
+            <button type="none"><img className={styles.googleIcon} src={google} alt="google" />Sign Up with Google</button>
           </div>
         </form>
 

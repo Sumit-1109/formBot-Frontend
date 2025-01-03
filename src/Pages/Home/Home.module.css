@@ -100,14 +100,12 @@
 .body {
     height: 100vh;
     width: 100vw;
-    border: 1px yellow solid;
     overflow-y: auto;
     position: absolute;
 }
 
 .heroPage {
     display: flex;
-    border: 1px red solid;
     justify-content: center;
     align-items: center;
     margin-top: 15%;
@@ -170,7 +168,6 @@
 
 .createFormBotbuttonBar {
     height: 10%;
-    border: 2px solid navy;
     margin-top: 1%;
     margin-bottom: 4%;
     display: flex;
@@ -195,7 +192,6 @@
 }
 
 .homeImage {
-    border: 2px solid pink;
     width: 100%;
     height: 90%;
     display: flex;
@@ -209,7 +205,6 @@
 }
 
 .footer {
-    border: 2px solid maroon;
     width: 100%;
     height: 40vh;
     display: flex;

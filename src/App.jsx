@@ -9,7 +9,6 @@ import Settings from "./Pages/Settings/Settings";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboardandmodal from "./Pages/Dashboardandmodal/Dashboardandmodal";
 
-
 import { ThemeProvider } from "./Context/ThemeContext";
 import { ToastContainer, Bounce } from "react-toastify";
 import withAuth from "./Services/withAuth";
@@ -48,6 +47,7 @@ const ProtectedDashboard = withAuth(Dashboardandmodal);
             {isAuthenticated ? (
               <>
               <Route path="/dashBoard" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider> } />
+              <Route path="/dashBoard/:dashBoardId" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider> } />
               <Route path="/dashBoard/:dashBoardId/folder/:folderId" element={<ThemeProvider><ProtectedDashboard /></ThemeProvider>} />
               <Route path="/settings" element={<ProtectedSettings />} />
               <Route path="/workspace/:fileId" element={<ThemeProvider><Workspace/></ThemeProvider>} />
@@ -55,8 +55,6 @@ const ProtectedDashboard = withAuth(Dashboardandmodal);
           ) : (
             <Route path="/signIn" element={<SignIn />} />
           )}
-            
-
             
           </Routes>
 

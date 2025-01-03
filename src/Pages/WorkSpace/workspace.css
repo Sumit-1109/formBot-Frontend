@@ -15,6 +15,10 @@
     overflow: hidden;
 }
 
+.workSpacePage.light{
+    background-color: white;
+}
+
 .WorkspaceNavBar {
     top: 0;
     width: 100vw;
@@ -41,12 +45,22 @@
     gap: 1%;
 }
 
+.itemBox.light{
+    background-color: white;
+    border: 1px solid black;
+}
+
 .bubbles,
 .inputs {
     width: 100%;
     display: flex;
     flex-direction: column;
     padding-inline: 5%;
+}
+
+.bubbles.light, .inputs.light, .bubbleButtons button.light, .inputButtons button.light{
+    background-color: white;
+    color: black;
 }
 
 .bubbles {
@@ -71,6 +85,10 @@
     line-height: 1;
     color: rgba(255, 255, 255, 0.92);
     margin-block: 0.5rem;
+}
+
+.headingP.light{
+    color: black;
 }
 
 
@@ -150,6 +168,12 @@
     padding-inline: 7%;
 }
 
+.formStart.light{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+
 .formStart img {
     height: 1rem;
     aspect-ratio: 1/1;
@@ -168,6 +192,11 @@
     padding-inline: 7%;
     position: relative;
 }
+.formElement.light{
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+}
 
 .deletePng{
     width: 1.5rem;
@@ -180,6 +209,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.deletePng.light{
+    background-color: white;
+    border: 1px solid black;
 }
 
 .deletePng img{
