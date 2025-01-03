@@ -5,54 +5,68 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "../../Context/ThemeContext";
+import { toast } from "react-toastify";
+import { getFormLink } from "../../Services/formSharing";
 
-function WorkspaceNavBar({ formName, setFormName, handleSave }) {
-  const {theme} = useTheme();
+function WorkspaceNavBar({ formName, setFormName, handleSave, formId, token }) {
+  const { theme } = useTheme();
   const [isFlow, setIsFlow] = useState(true);
 
   const navigate = useNavigate();
 
-  // const generateFormLink = async () => {
-  //   try{
-  //     const res = await getFormLink(formId, token);
-  //     if(res.status === 200) {
-  //       const data = await res.json();
-  //       const link = data.link;
-  //       console.log(link);
-  //       toast.success("Form Link generated");
-  //     } else {
-  //       toast.error("Failed to generate form link");
-  //     }
-  //   } catch (err) {
-  //     toast.error("Error generating form link: " + err.message);
-  //   }
-  // }
+  const generateFormLink = async () => {
+    try {
+      const res = await getFormLink(formId, token);
+      if (res.status === 200) {
+        const data = await res.json();
+        const link = data.link;
+        navigator.clipboard.writeText(link);
+        toast.success("Form link copied to clipboard!");
+      } else {
+        toast.error("Failed to generate form link.");
+      }
+    } catch (err) {
+      toast.error("Error generating form link: " + err.message);
+    }
+  };
 
   return (
-    <div className={`${styles.WorkspaceNavBar} ${theme ? styles.dark : styles.light}`}>
-      <div className={`${styles.formName} ${theme ? styles.dark : styles.light}`}>
+    <div
+      className={`${styles.WorkspaceNavBar} ${
+        theme ? styles.dark : styles.light
+      }`}
+    >
+      <div
+        className={`${styles.formName} ${theme ? styles.dark : styles.light}`}
+      >
         <input
           type="text"
           placeholder="Enter Form Name"
-          className={`${styles.formNameInput} ${theme ? styles.dark : styles.light}`}
+          className={`${styles.formNameInput} ${
+            theme ? styles.dark : styles.light
+          }`}
           value={formName}
-          onChange={(e) => setFormName(e.target.value)}
+          onChange={(e) => setFormName(e.target.value.trim())}
         />
       </div>
 
-      <div className={`${styles.screenSelector} ${theme ? styles.dark : styles.light}`}>
+      <div
+        className={`${styles.screenSelector} ${
+          theme ? styles.dark : styles.light
+        }`}
+      >
         <button
-          className={`${styles.flow} ${styles.screenButton} ${theme ? styles.dark : styles.light} ${
-            isFlow ? styles.active : styles.inActive
-          }`}
+          className={`${styles.flow} ${styles.screenButton} ${
+            theme ? styles.dark : styles.light
+          } ${isFlow ? styles.active : styles.inActive}`}
           onClick={() => setIsFlow(true)}
         >
           Flow
         </button>
         <button
-          className={`${styles.Response} ${styles.screenButton} ${theme ? styles.dark : styles.light} ${
-            isFlow ? styles.inActive : styles.active
-          }`}
+          className={`${styles.Response} ${styles.screenButton} ${
+            theme ? styles.dark : styles.light
+          } ${isFlow ? styles.inActive : styles.active}`}
           onClick={() => setIsFlow(false)}
         >
           Response
@@ -60,13 +74,19 @@ function WorkspaceNavBar({ formName, setFormName, handleSave }) {
       </div>
 
       <div className={styles.rightSide}>
-        <div className={`${styles.theme} ${theme ? styles.dark : styles.light}`}>
+        <div
+          className={`${styles.theme} ${theme ? styles.dark : styles.light}`}
+        >
           <Toggle />
         </div>
 
         <div className={styles.action}>
-          <button className={styles.share}>Share</button>
-          <button className={styles.save} onClick={handleSave}>Save</button>
+          <button className={styles.share} onClick={generateFormLink}>
+            Share
+          </button>
+          <button className={styles.save} onClick={handleSave}>
+            Save
+          </button>
         </div>
 
         <button className={styles.close} onClick={() => navigate(-1)}>
@@ -80,7 +100,9 @@ function WorkspaceNavBar({ formName, setFormName, handleSave }) {
 export default WorkspaceNavBar;
 
 WorkspaceNavBar.propTypes = {
-    formName: PropTypes.string,
-    setFormName: PropTypes.func,
-    handleSave: PropTypes.func,
-}
+  formName: PropTypes.string,
+  setFormName: PropTypes.func,
+  handleSave: PropTypes.func,
+  formId: PropTypes.string,
+  token: PropTypes.string,
+};

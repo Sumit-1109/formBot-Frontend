@@ -5,14 +5,11 @@ import ShareModal from "../ShareModal/ShareModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSharedDashBoard } from "../../Services/dashBoard";
 import { toast } from "react-toastify";
-// import ShareModal from "../ShareModal/ShareModal";
 
 function Dashboardandmodal() {
   const [showModal, setShowModal] = useState(false);
   const [modalFor, setModalFor] = useState("");
-
   const [folderFileName, setFolderFileName] = useState("");
-
   const [dashBoardId, setDashBoardId] = useState("");
   const [dashBoard, setDashBoard] = useState({
     folders: [],
@@ -21,17 +18,10 @@ function Dashboardandmodal() {
 
   const [folderId, setFolderId] = useState("");
   const [fileId, setFileId] = useState("");
-
-  const [folderDashBoard, setFolderDashBoard] = useState(null);
-
   const [selectedFolder, setSelectedFolder] = useState("");
-
   const [folderFiles, setFolderFiles] = useState([]);
-
   const [token, setToken] = useState("");
-
   const [toastMessage, setToastMessage] = useState("");
-
   const [toDelete, setToDelete] = useState(false);
   const [toShare, setToShare] = useState(false);
   const [sharedDashboards, setSharedDashboards] = useState([]);
@@ -51,25 +41,27 @@ function Dashboardandmodal() {
         const data = await res.json();
 
         if (res.status === 200) {
-          if (data.length === 0) {
-            toast.info("No shared dashboards");
-          } else {
-            setSharedDashboards(data);
+          setSharedDashboards(data);
+          if (sharedDashBoardId) {
+            const sharedDashboard = data.find((db) => db._id === sharedDashBoardId);
+            if (sharedDashboard) {
+              setDashBoard(sharedDashboard);
+              setDashBoardId(sharedDashBoardId);
+            } else {
+              toast.error("Shared dashboard not found");
+            }
           }
         } else {
           toast.error("Failed to fetch shared dashboards");
         }
       } catch (err) {
         console.error(err);
+        toast.error("Error loading shared dashboards");
       }
     };
 
     if (token) fetchSharedDashboards();
-  }, [token]);
-
-  useEffect(() => {
-    setDashBoardId(sharedDashBoardId || "");
-  }, [sharedDashBoardId]);
+  }, [token, sharedDashBoardId]);
 
   const handleDashBoardClick = (id) => {
     if (id) {
@@ -91,8 +83,6 @@ function Dashboardandmodal() {
         token={token}
         setToken={setToken}
         toastMessage={toastMessage}
-        folderDashBoard={folderDashBoard}
-        setFolderDashBoard={setFolderDashBoard}
         setFolderId={setFolderId}
         setFileId={setFileId}
         setToDelete={setToDelete}

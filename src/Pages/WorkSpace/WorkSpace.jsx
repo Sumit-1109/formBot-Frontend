@@ -17,10 +17,10 @@ import deletePng from "../../assets/delete.png";
 import { useParams } from "react-router-dom";
 import { getFile } from "../../Services/file";
 import { useEffect, useState } from "react";
-import { getForm, saveForm } from "../../Services/form";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { useTheme } from "../../Context/ThemeContext";
+import { saveForm } from "../../Services/form";
 
 function Workspace() {
   const { fileId } = useParams();
@@ -29,61 +29,53 @@ function Workspace() {
   const { theme } = useTheme();
 
   const token = localStorage.getItem("token");
-  console.log(fileId);
 
   useEffect(() => {
     const fetchForm = async () => {
-      try {
-        const res = await getFile(fileId, token);
+        try {
+            const res = await getFile(fileId, token);
 
-        if (res.status === 200) {
-          const data = await res.json();
-          const file = data.file;
+            if (res.status === 200) {
+                const data = await res.json();
+                const file = data.file;
 
-          if (file) {
-            if (file.forms && file.forms.length > 0) {
-              const formId = file.forms[0]._id;
+                if (file) {
+                    const form = data.form;
 
-              const formRes = await getForm(formId, token);
-
-              if (formRes.status === 200) {
-                const formData = await formRes.json();
-                const form = formData.form;
-
-                setFormName(form.formName || "");
-                setFormElements(form.elements || []);
-              }
+                    if (form) {
+                        setFormName(form.formName || "");
+                        setFormElements(form.elements || []);
+                    } else {
+                        setFormName("");
+                        setFormElements([]);
+                    }
+                }
             } else {
-              setFormName("");
-              setFormElements([]);
+                console.log("Error fetching file and form");
             }
-          }
-        } else {
-          console.log("Error fetching forms");
+        } catch (err) {
+            console.error("Error:", err);
         }
-      } catch (err) {
-        console.log(err);
-      }
     };
 
     if (fileId) {
-      fetchForm();
+        fetchForm();
     }
-  }, [fileId, token]);
+}, [fileId, token]);
 
-  const addElement = (type, heading, placeholder = "") => {
+const addElement = (type, heading) => {
     setFormElements((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        type,
-        heading: `${heading} ${prev.length + 1}`,
-        content: "",
-        placeholder,
-        order: prev.length + 1,
-      },
+        ...prev,
+        {
+            id: uuidv4(),
+            type,
+            heading: `${heading} ${prev.length + 1}`,
+            content: "",
+            order: prev.length + 1,
+        },
     ]);
-  };
+};
+  
 
   const handlePlaceholderChange = (index, value) => {
     const updatedElements = formElements.map((element, i) =>
@@ -95,11 +87,12 @@ function Workspace() {
   const handleSave = async () => {
     try {
       const formData = {
+        formName,
         elements: formElements,
       };
-
+  
       const res = await saveForm(fileId, formData, token, formName);
-
+  
       if (res.status === 201) {
         const data = await res.json();
         setFormElements(data.form.elements || []);
@@ -110,8 +103,10 @@ function Workspace() {
       }
     } catch (err) {
       console.log(err);
+      toast.error('An error occurred while saving the form.');
     }
-  };
+  };  
+ 
 
   const handleContextChange = (index, value) => {
     const updatedElements = formElements.map((element, i) =>
@@ -136,7 +131,6 @@ function Workspace() {
           formName={formName}
           setFormName={setFormName}
           handleSave={handleSave}
-          className={`${theme ? "dark" : "light"}`}
         />
       </div>
 
@@ -241,129 +235,115 @@ function Workspace() {
               <img src={flag} alt="flag" />
               <p>Start</p>
             </div>
-
             {formElements
-              .sort((a, b) => a.order - b.order) // Ensure correct order based on `order` field
-              .map((element, index) => (
-                <div
-                  key={element.id}
-                  className={`formElement ${theme ? "dark" : "light"}`}
-                >
-                  <div className={`deletePng ${theme ? "dark" : "light"}`}>
-                    <img
-                      src={deletePng}
-                      alt="delete"
-                      onClick={() => deleteElement(index)}
-                    />
-                  </div>
-                  <p>{element.heading}</p>
+  .sort((a, b) => a.order - b.order)
+  .map((element, index) => (
+    <div
+      key={element.id}
+      className={`formElement ${theme ? "dark" : "light"}`}
+    >
 
-                  {["text", "inputText"].includes(element.type) && (
-                    <input
-                      type="text"
-                      placeholder={element.placeholder || "Enter text"}
-                      value={element.content}
-                      className={`${theme ? "dark" : "light"}`}
-                      onChange={(e) =>
-                        handleContextChange(index, e.target.value)
-                      }
-                    />
-                  )}
+      <div className={`deletePng ${theme ? "dark" : "light"}`}>
+        <img
+          src={deletePng}
+          alt="delete"
+          onClick={() => deleteElement(index)}
+        />
+      </div>
 
-                  {element.type === "inputNumber" && (
-                    <input
-                      type="number"
-                      placeholder={element.placeholder || "Enter number..."}
-                      value={element.content}
-                      className={`${theme ? "dark" : "light"}`}
-                      onChange={(e) =>
-                        handleContextChange(index, e.target.value)
-                      }
-                    />
-                  )}
+      <p>{element.heading}</p>
 
-                  {element.type === "inputEmail" && (
-                    <input
-                      type="email"
-                      placeholder={element.placeholder || "Enter email..."}
-                      value={element.content}
-                      className={`${theme ? "dark" : "light"}`}
-                      onChange={(e) =>
-                        handleContextChange(index, e.target.value)
-                      }
-                    />
-                  )}
+      {["text", "inputText"].includes(element.type) && (
+        <input
+          type="text"
+          placeholder={element.placeholder || "Enter text"}
+          value={element.content}
+          className={`${theme ? "dark" : "light"}`}
+          onChange={(e) => handleContextChange(index, e.target.value)}
+        />
+      )}
 
-                  {element.type === "inputPhone" && (
-                    <input
-                      type="tel"
-                      placeholder={element.placeholder || "Enter phone..."}
-                      value={element.content}
-                      className={`${theme ? "dark" : "light"}`}
-                      onChange={(e) =>
-                        handleContextChange(index, e.target.value)
-                      }
-                    />
-                  )}
+      {element.type === "inputNumber" && (
+        <input
+          type="number"
+          placeholder={element.placeholder || "Enter number..."}
+          value={element.content}
+          className={`${theme ? "dark" : "light"}`}
+          onChange={(e) => handleContextChange(index, e.target.value)}
+        />
+      )}
 
-                  {element.type === "inputDate" && (
-                    <input
-                      type="date"
-                      value={element.content}
-                      placeholder={element.placeholder || "Select a date"}
-                      className={`${theme ? "dark" : "light"}`}
-                      onChange={(e) =>
-                        handleContextChange(index, e.target.value)
-                      }
-                    />
-                  )}
+      {element.type === "inputEmail" && (
+        <input
+          type="email"
+          placeholder={element.placeholder || "Enter email..."}
+          value={element.content}
+          className={`${theme ? "dark" : "light"}`}
+          onChange={(e) => handleContextChange(index, e.target.value)}
+        />
+      )}
 
-                  {element.type === "inputRating" && (
-                    <div
-                      className={`ratingContainer ${theme ? "dark" : "light"}`}
-                    >
-                      <p>{element.placeholder || "Rate out of 5:"}</p>
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <div
-                          key={star}
-                          className={`${
-                            element.content >= star
-                              ? `selectedStar ${theme ? "dark" : "light"}`
-                              : `star ${theme ? "dark" : "light"}`
-                          }`}
-                          onClick={() => handleContextChange(index, star)}
-                        >
-                          {star}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+      {element.type === "inputPhone" && (
+        <input
+          type="tel"
+          placeholder={element.placeholder || "Enter phone..."}
+          value={element.content}
+          className={`${theme ? "dark" : "light"}`}
+          onChange={(e) => handleContextChange(index, e.target.value)}
+        />
+      )}
 
-                  {element.type === "inputButtons" && (
-                    <button
-                      className={`${theme ? "dark" : "light"}`}
-                      onClick={() =>
-                        handleContextChange(index, "Button clicked")
-                      }
-                    >
-                      {element.placeholder || "Placeholder Button"}
-                    </button>
-                  )}
+      {element.type === "inputDate" && (
+        <input
+          type="date"
+          value={element.content}
+          placeholder={element.placeholder || "Select a date"}
+          className={`${theme ? "dark" : "light"}`}
+          onChange={(e) => handleContextChange(index, e.target.value)}
+        />
+      )}
 
-                  {/* Placeholder customization field */}
-                  {element.type.includes("input") && (
-                    <input
-                      type="text"
-                      placeholder="Enter placeholder for this field..."
-                      value={element.placeholder}
-                      className={`${theme ? "dark" : "light"} placeholderInput`}
-                      onChange={(e) =>
-                        handlePlaceholderChange(index, e.target.value)
-                      }
-                    />
-                  )}
-                </div>
-              ))}
+      {element.type === "inputRating" && (
+        <div className={`ratingContainer ${theme ? "dark" : "light"}`}>
+          <p>{element.placeholder || "Rate out of 5:"}</p>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <div
+              key={star}
+              className={`${
+                element.content >= star
+                  ? `selectedStar ${theme ? "dark" : "light"}`
+                  : `star ${theme ? "dark" : "light"}`
+              }`}
+              onClick={() => handleContextChange(index, star)}
+            >
+              {star}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {element.type === "inputButtons" && (
+        <button
+          className={`${theme ? "dark" : "light"}`}
+          onClick={() => handleContextChange(index, "Button clicked")}
+        >
+          {element.placeholder || "Placeholder Button"}
+        </button>
+      )}
+
+
+      {element.type.includes("input") && (
+        <input
+          type="text"
+          placeholder="Enter placeholder for this field..."
+          value={element.placeholder}
+          className={`${theme ? "dark" : "light"} placeholderInput`}
+          onChange={(e) => handlePlaceholderChange(index, e.target.value)}
+        />
+      )}
+    </div>
+  ))}
+
           </div>
         </div>
       </div>
